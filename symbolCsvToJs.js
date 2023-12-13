@@ -7,7 +7,7 @@ const outputFolder = "/Users/mohit/Projects/stock_analysis_site/code/script_io/o
 const outputFile = "NSE.json"
 
 const csvFile = fs.readFileSync(inputFolder+'/'+inputFile,'utf8')
-
+// const csvFile = fs.readFileSync('samplecsv.csv','utf8')
 let lines = csvFile.split('\n');
 
 /*
@@ -23,7 +23,7 @@ const respObj = [];
 
 lines.forEach((line)=>{
     let cols = line.split(",");
-    if(cols[0].includes("NSE_EQ|IN") && cols[4]!=='""' && !cols[3].includes("GOI")){
+    if(cols[0].includes("NSE_EQ|IN") && cols[4]!=='""' && !cols[3].includes("GOI") && !cols[3].includes('%')){
         respObj.push({
             name:cols[3].replaceAll('"',''),
             instrumentKey:cols[0].replaceAll('"',''),
@@ -35,4 +35,5 @@ lines.forEach((line)=>{
 });
 
 // Write the JSON file 
+// fs.writeFileSync('sampleJson.json', JSON.stringify(respObj)); 
 fs.writeFileSync(outputFolder+'/'+outputFile, JSON.stringify(respObj)); 
